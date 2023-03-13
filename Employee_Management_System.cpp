@@ -3,6 +3,7 @@
 using namespace std;
 
 int n; /*Global because many functions use it and the size is variable during deletion*/
+int valueId;
 
 struct employee
 {
@@ -152,6 +153,7 @@ void searchId(struct employee e[], int size, int id)
     if (flag == 1)
     {
         cout << "\nThe details of the respective employee is as follows:" << endl;
+        valueId=k;
         printer(e, index, k);
     }
     else
@@ -224,7 +226,8 @@ void print(struct employee e[], int size)
 
 void deleteEmployee(struct employee e[], int size, int id)
 {
-    int index = id;
+    searchId(e,size,id);
+    int index=valueId;
     for (int i = index; i <= size; i++)
     {
         strcpy(e[index].name, e[index + 1].name);
@@ -234,11 +237,13 @@ void deleteEmployee(struct employee e[], int size, int id)
         e[index].age = e[index + 1].age;
         strcpy(e[index].department, e[index + 1].department);
         e[index].salary = e[index + 1].salary;
-        size--;
-        n = size;
+        // size--;
+        // n = size;
         cout << "\nRequired entry has successfully been deleted, you can check so by printing the details\n"
              << endl;
     }
+    size--;
+    n = size;
 }
 
 int main()
